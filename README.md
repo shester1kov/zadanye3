@@ -40,7 +40,7 @@ npm install
 1. Перейдите в папку `admin`:
 
 ```bash
-cd ../admin
+cd ./zadanye3/admin
 ```
 
 2. Запустите сервер:
@@ -53,10 +53,10 @@ node server.js
 
 ### Запуск User сервера
 
-1. Перейдите в папку user:
+1. Перейдите в папку user в новом терминале:
 
 ```bash
-cd ../user
+cd ./zadanye3/user
 ```
 
 2. Запустите сервер:
@@ -93,4 +93,5 @@ zadanye3/
 │   ├── [styles.css](user/styles.css) # Стили для веб-страницы  
 
 ### Примечания
+
 Убедитесь, что файл products.json содержит корректные данные.
