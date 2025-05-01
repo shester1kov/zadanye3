@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Каталог товаров</h1>
+    <div id="container"></div>
+
+    <script>
+        async function fetchProducts() {
+            try {
+                const response = await fetch('http://localhost:3000/api/products');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const products = await response.json();
+                displayProducts(products);
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error);
+                displayError('Ошибка при получении данных. Пожалуйста, попробуйте позже.');
+            }
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById('container');
+
+            let categories = {};
+            
+            for (let i = 0; i < products.length; i++) {
+
+                for (let j = 0; j < products[i].categories.length; j++) {
+                    if (categories[products[i].categories[j]] === undefined) {
+                        categories[products[i].categories[j]] = [];
+                    }
+
+                    var productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    var H2 = document.createElement('h3');
+                    H2.textContent = products[i].name;
+                    var P = document.createElement('p');
+                    P.textContent = products[i].description;
+                    var P2 = document.createElement('p');
+                    P2.textContent = products[i].price;
+                    productCard.appendChild(H2);
+                    productCard.appendChild(P);
+                    productCard.appendChild(P2);
+
+                    categories[products[i].categories[j]].push(productCard);
+                }
+            }
+
+            for (let category in categories) {
+                var categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                var products = document.createElement('div');
+                products.className = 'products';
+                var categoryH2 = document.createElement('h2');
+                categoryH2.textContent = category;
+                categoryDiv.appendChild(categoryH2);
+                for (let i = 0; i < categories[category].length; i++) {
+                    products.appendChild(categories[category][i]);
+                }
+                categoryDiv.appendChild(products);
+                container.appendChild(categoryDiv);
+            }
+        }
+
+        function displayError(message) {
+            const container = document.getElementById('container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            container.appendChild(errorDiv);
+        }
+
+        fetchProducts();
+    </script>
+</body>
+</html>

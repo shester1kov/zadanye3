@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  title: API продуктов
+  version: 1.0.0
+  description: API для управления продуктами
+servers:
+  - url: http://localhost:3000
+    description: Локальный сервер разработки
+paths:
+  /api/products:
+    get:
+      summary: Получить все продукты
+      description: Получает список всех продуктов.
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Название продукта"
+                    price:
+                      type: number
+                      format: float
+                      example: 19.99
+                    description:
+                      type: string
+                      example: "Описание продукта"
+                    categories:
+                      type: array
+                      items:
+                        type: string
+                        example: "Название категории"
+                    isActive:
+                      type: boolean
+                      example: true
+    post:
+      summary: Добавить новые продукты
+      description: Добавить новые продукты в базу данных.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "Новый продукт"
+                  price:
+                    type: number
+                    format: float
+                    example: 29.99
+                  description:
+                    type: string
+                    example: "Новое описание продукта"
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      example: "Новая категория"
+      responses:
+        "201":
+          description: Продукты успешно созданы
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Название нового продукта"
+                    price:
+                      type: number
+                      format: float
+                      example: 19.99
+                    description:
+                      type: string
+                      example: "Описание нового продукта"
+                    categories:
+                      type: array
+                      items:
+                        type: string
+                        example: "Название новой категории"
+                    isActive:
+                      type: boolean
+                      example: true
+  /api/products/{id}:
+    get:
+      summary: Получить продукт по ID
+      description: Получить продукт по его ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Название продукта"
+                  price:
+                    type: number
+                    format: float
+                    example: 19.99
+                  description:
+                    type: string
+                    example: "Описание продукта"
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      example: "Название категории"
+                  isActive:
+                    type: boolean
+                    example: true
+        "404":
+          description: Продукт не найден
+    put:
+      summary: Обновить продукт по ID
+      description: Обновить продукт по его ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Обновленное название продукта"
+                price:
+                  type: number
+                  format: float
+                  example: 24.99
+                description:
+                  type: string
+                  example: "Обновленное описание продукта"
+                categories:
+                  type: array
+                  items:
+                    type: string
+                    example: "Обновленная категория"
+      responses:
+        "200":
+          description: Продукт успешно обновлен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: "Обновленное название продукта"
+                  price:
+                    type: number
+                    format: float
+                    example: 24.99
+                  description:
+                    type: string
+                    example: "Обновленное описание продукта"
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      example: "Обновленная категория"
+                  isActive:
+                    type: boolean
+                    example: true
+        "404":
+          description: Product not found
+    delete:
+      summary: Удалить продукт по ID
+      description: Удалить продукт по его ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Продукт успешно удален
+        "404":
+          description: Продукт не найден
