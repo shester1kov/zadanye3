@@ -40,7 +40,7 @@ npm install
 1. Перейдите в папку `admin`:
 
 ```bash
-cd ./zadanye3/admin
+cd ../admin
 ```
 
 2. Запустите сервер:
