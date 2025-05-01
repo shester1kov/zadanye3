@@ -44,7 +44,8 @@
                     var P = document.createElement('p');
                     P.textContent = products[i].description;
                     var P2 = document.createElement('p');
-                    P2.textContent = products[i].price;
+                    P2.className = 'price';
+                    P2.textContent = products[i].price + ' руб.';
                     productCard.appendChild(H2);
                     productCard.appendChild(P);
                     productCard.appendChild(P2);
